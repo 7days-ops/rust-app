@@ -3,20 +3,19 @@ use std::process::Command;
 
 #[test]
 fn test_memory_info_runs_without_panic() {
-    // Test that show_memory_info doesn't panic
-    // This is an integration test - testing the whole function
+
     memory_info::show_memory_info();
 }
 
 #[test]
 fn test_disk_info_runs_without_panic() {
-    // Test that show_disk_info doesn't panic
+   
     memory_info::show_disk_info();
 }
 
 #[test]
 fn test_system_commands_are_available() {
-    // Verify that required system commands exist
+   
     let commands = vec!["uname", "vm_stat", "df", "sysctl"];
     
     for cmd in commands {
@@ -31,7 +30,7 @@ fn test_system_commands_are_available() {
 
 #[test]
 fn test_uname_returns_kernel_version() {
-    // Test that we can get kernel version
+    
     let output = Command::new("uname")
         .arg("-r")
         .output()
@@ -62,7 +61,7 @@ fn test_sysctl_returns_memory_size() {
 
 #[test]
 fn test_vm_stat_output_format() {
-    // Test that vm_stat returns expected format
+    
     let output = Command::new("vm_stat")
         .output()
         .expect("Failed to execute vm_stat");
@@ -70,14 +69,14 @@ fn test_vm_stat_output_format() {
     assert!(output.status.success());
     let info = String::from_utf8_lossy(&output.stdout);
     
-    // Check that output contains expected fields
+    
     assert!(info.contains("Pages active") || info.contains("pages active"));
     assert!(info.contains("Pages wired") || info.contains("pages wired"));
 }
 
 #[test]
 fn test_df_output_format() {
-    // Test that df returns expected format
+    
     let output = Command::new("df")
         .arg("-h")
         .arg("/")
@@ -87,6 +86,6 @@ fn test_df_output_format() {
     assert!(output.status.success());
     let info = String::from_utf8_lossy(&output.stdout);
     
-    // Should have at least 2 lines (header + data)
+   
     assert!(info.lines().count() >= 2, "df output should have at least 2 lines");
 }
