@@ -1,3 +1,5 @@
+mod memory_info;
+
 use std::process::Command;
 
 fn main() {
@@ -25,4 +27,8 @@ fn main() {
             eprintln!("Error getting full kernel info: {}", e);
         }
     }
+
+    // Show memory and disk information
+    memory_info::show_memory_info();
+    memory_info::show_disk_info();
 }
